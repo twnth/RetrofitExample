@@ -1,4 +1,4 @@
-package com.example.dudgn.retrofitexample;
+package com.example.dudgn.retrofitexample.view;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.request.RequestOptions;
+import com.example.dudgn.retrofitexample.R;
 import com.example.dudgn.retrofitexample.model.Article;
 
 import java.util.ArrayList;
@@ -37,6 +41,12 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         viewHolder.tvUsername.setText(article.getAuthor().getUsername());
         viewHolder.tvDay.setText(article.getCreatedAt());
         viewHolder.tvConetent.setText(article.getBody());
+        Glide.with(viewHolder.imageView)
+                .load(article.getAuthor().getImage()) //load(url)인데 꼭 url말고 drawble에 있는
+                //이미지도 가능
+                .apply(RequestOptions.circleCropTransform()) //circlecrop: 사진 둥글게
+                .transition(DrawableTransitionOptions.withCrossFade(1000))
+                .into(viewHolder.imageView);
     }
 
     @Override
